@@ -2,6 +2,7 @@
 
 Parcial práctico-teórico (25%) – Sistemas Operativos, Universidad EAFIT, 2026-2.
 Integrantes: Juan José García y Juan Esteban Jiménez.
+Repositorio: https://github.com/jjgarciau/so2026b-mmap-guard
 Referencia base: [SO2026B / USOS / CapaKernel](https://github.com/evalenciEAFIT/SO2026B/tree/main/USOS/CapaKernel)
 
 ## Objetivo

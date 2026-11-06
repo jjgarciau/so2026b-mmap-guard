@@ -1,0 +1,10 @@
+[politica] /tmp/mmap_guard_race.Kq2OT1/solo_lectura.dat (dev=8388656 ino=15878) reglas=shared-write,private-write,exec uid_autorizado=ninguno
+[mmap_guard] activo (modo BLOQUEO). Ctrl+C para salir.
+09:21:47 DENEGADO          mmap     pid=4324   uid=65534 comm=race_cow        prot=RW- flags=0x2 regla=private-write archivo=/tmp/mmap_guard_race.Kq2OT1/solo_lectura.dat
+
+--- Contadores del kernel ---
+  hooks evaluados              573
+  sobre archivos protegidos    2
+  denegados                    1
+  denegarían (auditoría)     0
+[mmap_guard] detenido. Eventos recibidos: 1

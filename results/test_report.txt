@@ -1,0 +1,64 @@
+Reporte de pruebas mmap_guard - 2026-11-06 08:58:42
+Kernel: 6.6.87.2-microsoft-standard-WSL2 | LSM activos: capability,landlock,yama,safesetid,selinux,bpf
+Usuario no privilegiado: nobody (uid=65534)
+
+FASE       CASO                                             ESPERADO  OBTENIDO  RESULTADO
+base       Lectura MAP_SHARED (legitima)                    permite   permite   OK
+           -> PERMITIDO read-shared
+base       Escritura MAP_SHARED                             permite   permite   OK
+           -> PERMITIDO write-shared: el archivo FUE modificado ('D' -> 'X')
+base       Escritura MAP_PRIVATE con O_RDONLY (COW)         permite   permite   OK
+           -> PERMITIDO write-private: copia privada modificada, archivo intacto (COW)
+base       Mapeo PROT_EXEC (inyeccion de codigo)            permite   permite   OK
+           -> PERMITIDO exec
+base       Bypass: mmap(R) + mprotect(W) shared             permite   permite   OK
+           -> PERMITIDO mprotect-write-shared: el archivo FUE modificado ('D' -> 'X')
+base       Bypass: mmap(R) + mprotect(W) private            permite   permite   OK
+           -> PERMITIDO mprotect-write-private: copia privada modificada, archivo intacto (COW)
+base       Bypass: mmap(R) + mprotect(X)                    permite   permite   OK
+           -> PERMITIDO mprotect-exec
+base       Bypass: enlace simbolico                         permite   permite   OK
+           -> PERMITIDO write-shared: el archivo FUE modificado ('D' -> 'X')
+base       Bypass: enlace duro                              permite   permite   OK
+           -> PERMITIDO write-shared: el archivo FUE modificado ('D' -> 'X')
+base       Root sin autorizacion                            permite   permite   OK
+           -> PERMITIDO write-shared: el archivo FUE modificado ('D' -> 'X')
+base       Config: escritura shared no autorizada           permite   permite   OK
+           -> PERMITIDO write-shared: el archivo FUE modificado ('m' -> 'X')
+base       Config: escritura shared UID autorizado          permite   permite   OK
+           -> PERMITIDO write-shared: el archivo FUE modificado ('m' -> 'X')
+base       Config: escritura private (regla no aplica)      permite   permite   OK
+           -> PERMITIDO write-private: copia privada modificada, archivo intacto (COW)
+bloqueo    Lectura MAP_SHARED (legitima)                    permite   permite   OK
+           -> PERMITIDO read-shared
+bloqueo    Escritura MAP_SHARED                             deniega   deniega   OK
+           -> DENEGADO  mmap: Operation not permitted
+bloqueo    Escritura MAP_PRIVATE con O_RDONLY (COW)         deniega   deniega   OK
+           -> DENEGADO  mmap: Operation not permitted
+bloqueo    Mapeo PROT_EXEC (inyeccion de codigo)            deniega   deniega   OK
+           -> DENEGADO  mmap: Operation not permitted
+bloqueo    Bypass: mmap(R) + mprotect(W) shared             deniega   deniega   OK
+           -> DENEGADO  mprotect: Operation not permitted
+bloqueo    Bypass: mmap(R) + mprotect(W) private            deniega   deniega   OK
+           -> DENEGADO  mprotect: Operation not permitted
+bloqueo    Bypass: mmap(R) + mprotect(X)                    deniega   deniega   OK
+           -> DENEGADO  mprotect: Operation not permitted
+bloqueo    Bypass: enlace simbolico                         deniega   deniega   OK
+           -> DENEGADO  mmap: Operation not permitted
+bloqueo    Bypass: enlace duro                              deniega   deniega   OK
+           -> DENEGADO  mmap: Operation not permitted
+bloqueo    Root sin autorizacion                            deniega   deniega   OK
+           -> DENEGADO  mmap: Operation not permitted
+bloqueo    Config: escritura shared no autorizada           deniega   deniega   OK
+           -> DENEGADO  mmap: Operation not permitted
+bloqueo    Config: escritura shared UID autorizado          permite   permite   OK
+           -> PERMITIDO write-shared: el archivo FUE modificado ('m' -> 'X')
+bloqueo    Config: escritura private (regla no aplica)      permite   permite   OK
+           -> PERMITIDO write-private: copia privada modificada, archivo intacto (COW)
+integridad sha256 del secreto antes = despues               igual     igual     OK
+auditoria  Escritura shared permitida pero registrada       permite   permite   OK
+           -> PERMITIDO write-shared: el archivo FUE modificado ('D' -> 'X')
+auditoria  Evento registrado en el log                      registra  registra  OK
+
+Total: 29 OK, 0 FALLO
+Eventos de auditoria: /mnt/d/Proyectos/Entrega3-SO/results/audit_tests.jsonl

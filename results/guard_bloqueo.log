@@ -1,0 +1,20 @@
+[politica] /tmp/mmap_guard_test.Zs4U7z/secreto.dat (dev=8388656 ino=11709) reglas=shared-write,private-write,exec uid_autorizado=ninguno
+[politica] /tmp/mmap_guard_test.Zs4U7z/config.dat (dev=8388656 ino=11710) reglas=shared-write uid_autorizado=0
+[mmap_guard] activo (modo BLOQUEO). Ctrl+C para salir.
+08:58:42 DENEGADO          mmap     pid=3711   uid=65534 comm=mmap_probe      prot=RW- flags=0x1 regla=shared-write archivo=/tmp/mmap_guard_test.Zs4U7z/secreto.dat
+08:58:42 DENEGADO          mmap     pid=3717   uid=65534 comm=mmap_probe      prot=RW- flags=0x2 regla=private-write archivo=/tmp/mmap_guard_test.Zs4U7z/secreto.dat
+08:58:42 DENEGADO          mmap     pid=3723   uid=65534 comm=mmap_probe      prot=R-X flags=0x2 regla=exec archivo=/tmp/mmap_guard_test.Zs4U7z/secreto.dat
+08:58:42 DENEGADO          mprotect pid=3729   uid=65534 comm=mmap_probe      prot=RW- vm_flags=0x80000f9 regla=shared-write archivo=/tmp/mmap_guard_test.Zs4U7z/secreto.dat
+08:58:42 DENEGADO          mprotect pid=3735   uid=65534 comm=mmap_probe      prot=RW- vm_flags=0x8000071 regla=private-write archivo=/tmp/mmap_guard_test.Zs4U7z/secreto.dat
+08:58:42 DENEGADO          mprotect pid=3741   uid=65534 comm=mmap_probe      prot=R-X vm_flags=0x8000071 regla=exec archivo=/tmp/mmap_guard_test.Zs4U7z/secreto.dat
+08:58:42 DENEGADO          mmap     pid=3747   uid=65534 comm=mmap_probe      prot=RW- flags=0x1 regla=shared-write archivo=/tmp/mmap_guard_test.Zs4U7z/secreto.dat
+08:58:42 DENEGADO          mmap     pid=3753   uid=65534 comm=mmap_probe      prot=RW- flags=0x1 regla=shared-write archivo=/tmp/mmap_guard_test.Zs4U7z/secreto.dat
+08:58:42 DENEGADO          mmap     pid=3759   uid=0     comm=mmap_probe      prot=RW- flags=0x1 regla=shared-write archivo=/tmp/mmap_guard_test.Zs4U7z/secreto.dat
+08:58:42 DENEGADO          mmap     pid=3765   uid=65534 comm=mmap_probe      prot=RW- flags=0x1 regla=shared-write archivo=/tmp/mmap_guard_test.Zs4U7z/config.dat
+
+--- Contadores del kernel ---
+  hooks evaluados              1187
+  sobre archivos protegidos    16
+  denegados                    10
+  denegarían (auditoría)     0
+[mmap_guard] detenido. Eventos recibidos: 10

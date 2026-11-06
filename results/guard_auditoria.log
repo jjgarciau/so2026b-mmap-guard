@@ -1,0 +1,11 @@
+[politica] /tmp/mmap_guard_test.Zs4U7z/secreto.dat (dev=8388656 ino=11709) reglas=shared-write,private-write,exec uid_autorizado=ninguno
+[politica] /tmp/mmap_guard_test.Zs4U7z/config.dat (dev=8388656 ino=11710) reglas=shared-write uid_autorizado=0
+[mmap_guard] activo (modo AUDITORIA). Ctrl+C para salir.
+08:58:43 AUDIT(denegaría) mmap     pid=3797   uid=65534 comm=mmap_probe      prot=RW- flags=0x1 regla=shared-write archivo=/tmp/mmap_guard_test.Zs4U7z/secreto.dat
+
+--- Contadores del kernel ---
+  hooks evaluados              224
+  sobre archivos protegidos    1
+  denegados                    0
+  denegarían (auditoría)     1
+[mmap_guard] detenido. Eventos recibidos: 1

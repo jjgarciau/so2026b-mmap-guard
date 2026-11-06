@@ -1,0 +1,9 @@
+[politica] /tmp/mmap_guard_bench.i6beCr/protegido.dat (dev=8388656 ino=15878) reglas=shared-write,private-write,exec uid_autorizado=ninguno
+[mmap_guard] activo (modo BLOQUEO). Ctrl+C para salir.
+
+--- Contadores del kernel ---
+  hooks evaluados              6105310
+  sobre archivos protegidos    3061135
+  denegados                    0
+  denegarían (auditoría)     0
+[mmap_guard] detenido. Eventos recibidos: 0

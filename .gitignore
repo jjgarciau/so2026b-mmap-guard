@@ -1,0 +1,20 @@
+# Artefactos de compilación
+*.o
+*.bpf.o
+*.skel.h
+vmlinux.h
+build/
+mmap_guard
+tests/mmap_probe
+tests/race_cow
+bench/bench_mmap
+
+# Resultados crudos voluminosos (los resúmenes sí se versionan)
+results/*.data
+results/*.raw
+
+# Temporales de Office
+~$*
+
+# Log de auditoría del benchmark en modo -v (~7 MB)
+results/bench/guard_bench_log.log

@@ -1,0 +1,23 @@
+Reporte de carrera mmap_guard - 2026-11-06 09:21:27
+Kernel: 6.6.87.2-microsoft-standard-WSL2 | CPUs: 8 | segundos por escenario: 10
+Archivo objetivo: root:root 0444, 8 KiB | atacante: nobody
+
+== Sin defensa ==
+[OK] 1. madvise vs /proc/self/mem (Dirty COW) sin defensa
+        modo=procmem segundos=10 madvise=3653267 escrituras=1963236 errores_escritura=0 -> ARCHIVO INTACTO
+        sha256 igual al original: si
+[OK] 2. madvise vs escritura directa COW sin defensa
+        modo=direct segundos=10 madvise=4104992 escrituras=869691015 errores_escritura=0 -> ARCHIVO INTACTO
+        sha256 igual al original: si
+== Con defensa (mmap_guard, regla write,exec) ==
+[OK] 3. madvise vs escritura directa COW con defensa
+        DENEGADO  mmap(RW, MAP_PRIVATE): Operation not permitted
+        sha256 igual al original: si
+[OK] 4. madvise vs /proc/self/mem con defensa
+        modo=procmem segundos=10 madvise=3663258 escrituras=2068280 errores_escritura=0 -> ARCHIVO INTACTO
+        sha256 igual al original: si
+09:21:47 DENEGADO          mmap     pid=4324   uid=65534 comm=race_cow        prot=RW- flags=0x2 regla=private-write archivo=/tmp/mmap_guard_race.Kq2OT1/solo_lectura.dat
+--- Contadores del kernel ---
+  denegados                    1
+
+Total: 4 OK, 0 FALLO
